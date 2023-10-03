@@ -3,14 +3,26 @@
 
 ## Contents
 
+<!-- - [Visualization](#visualization) -->
 - [Data preparing](#getting-started)
 - [Unsupervised Pre-Training](#unsupervised-pre-training)
   - [CluSiam](#clusiam)
   - [CluBYOL](#clubyol)
 - [Evaluation](#evaluation)
-- [Visualization](#visualization)
 - [Repository Status](#repository-status)
 
+## Visualization
+<table>
+  <tr>
+    <td><img src=".github\tumor_076.png" alt="Image 1" width="300"/></td>
+    <td><img src=".github\tumor_090.png" alt="Image 2" width="300"/></td>
+  </tr>
+  <tr>
+    <td><img src=".github\tumor_085.png" alt="Image 3" width="300"/></td>
+    <td><img src=".github\tumor_110.png" alt="Image 4" width="300"/></td>
+  </tr>
+</table>
+In the visualizations provided, distinct color-filled regions depict different cluster assignments. The blue contours delineate the annotations made by human annotators.
 
 ## Data preparing
 We've processed the Camelyon16 dataset for the ease. You can download the processed dataset directly from the link below:
@@ -18,6 +30,7 @@ We've processed the Camelyon16 dataset for the ease. You can download the proces
 [Download Processed Camelyon16 Dataset](https://www.dropbox.com/s/58j49j8vy2cwkpj/Camelyon_20xpatch.zip)
 
 Please ensure you adhere to the Camelyon16 dataset's licensing and usage conditions.
+
 
 ## Unsupervised Pre-Training
 
@@ -75,18 +88,6 @@ We compare our representation's performance on whole slide-level classification 
 | BYOL       | 0.441 |
 | SimSiam    | 0.511 |
 | CluSiam    | 0.730 |
-
-## Visualization
-<table>
-  <tr>
-    <td><img src=".github\tumor_076.png" alt="Image 1" width="300"/></td>
-    <td><img src=".github\tumor_090.png" alt="Image 2" width="300"/></td>
-  </tr>
-  <tr>
-    <td><img src=".github\tumor_085.png" alt="Image 3" width="300"/></td>
-    <td><img src=".github\tumor_110.png" alt="Image 4" width="300"/></td>
-  </tr>
-</table>
 
 
 ## Repository Status

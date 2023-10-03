@@ -24,7 +24,6 @@ parser = argparse.ArgumentParser(description="PyTorch Pre-training")
 parser.add_argument("--model_type", default="clusiam", choices=["clusiam", "clubyol"], help="Model type to train")
 parser.add_argument("--num_clusters", default=100, type=int, help="Number of clusters")
 parser.add_argument("--feat_size", default=2048, type=int, help="Feature size")
-parser.add_argument("--start_epoch", default=0, type=int, help="Starting epoch for training")
 parser.add_argument("--epochs", default=50, type=int, help="Total number of epochs for training")
 parser.add_argument("--alpha", default=0.5, type=float, help="Alpha value for loss calculation")
 
@@ -73,6 +72,7 @@ def main():
     ]
 
     # Dataset preparation
+    os.makedirs(os.path.dirname(args.log_dst), exist_ok=True)
     train_dir_temp = train_dir.joinpath("*", "*", "*.png")
     patch_list = glob.glob(str(train_dir_temp))
     train_dataset = ClusterDataset.PathData(patch_list, data_aug.loader.TwoCropsTransform(transforms.Compose(augmentation)))
@@ -92,6 +92,7 @@ def main():
 
 
     def save_checkpoint(state, filename="checkpoint.pth.tar"):
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
         torch.save(state, filename)
 
     class AverageMeter(object):
@@ -160,6 +161,7 @@ def main():
     )
 
     # Checkpoint loading logic
+    start_epoch = 0
     if args.resume:
         if os.path.isfile(args.resume):
             print(f"=> loading checkpoint '{args.resume}'")
@@ -256,7 +258,7 @@ def main():
                     print(len(online_counter), gumbel_valids, online_counter)
         progress.write_log(i)
 
-    for epoch in range(args.start_epoch, args.epochs):
+    for epoch in range(start_epoch, args.epochs):
         adjust_learning_rate(optimizer, init_lr, epoch, args.epochs)
 
         train(train_loader, model, criterion, optimizer, epoch)

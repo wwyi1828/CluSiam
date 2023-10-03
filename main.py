@@ -32,7 +32,7 @@ parser.add_argument("--alpha", default=0.5, type=float, help="Alpha value for lo
 parser.add_argument("--lr", default=0.05, type=float, help="Learning rate")
 parser.add_argument("--weight_decay", default=1e-4, type=float, help="Weight decay for optimizer")
 parser.add_argument("--momentum", default=0.9, type=float, help="Momentum for optimizer")
-parser.add_argument("--fix_pred_lr", action="store_true", type=bool, help="Fix predictor learning rate")
+parser.add_argument("--fix_pred_lr", action="store_true", help="Fix predictor learning rate")
 
 # Data loading settings
 parser.add_argument("--batch_size", default=512, type=int, help="Batch size for training")
@@ -245,7 +245,8 @@ def main():
                 online_counter = Counter(np.argmax(concatenated_assignments, axis=1))
                 
                 # Calculate gumbel valids
-                gumbel_softmax_values = F.gumbel_softmax(concatenated_assignments, hard=False).detach().cpu().numpy()
+                concatenated_assignments_tensor = torch.tensor(concatenated_assignments)
+                gumbel_softmax_values = F.gumbel_softmax(concatenated_assignments_tensor, hard=False).detach().cpu().numpy()
                 gumbel_valids = len(Counter(np.argmax(gumbel_softmax_values, axis=1)))
                 
                 # Print statistics
@@ -255,7 +256,7 @@ def main():
                     print(len(online_counter), gumbel_valids, online_counter)
         progress.write_log(i)
 
-    for epoch in range(start_epoch, args.epochs):
+    for epoch in range(args.start_epoch, args.epochs):
         adjust_learning_rate(optimizer, init_lr, epoch, args.epochs)
 
         train(train_loader, model, criterion, optimizer, epoch)

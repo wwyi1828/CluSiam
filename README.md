@@ -32,9 +32,9 @@ We've processed the Camelyon16 dataset for the ease. You can download the proces
 Please ensure you adhere to the Camelyon16 dataset's licensing and usage conditions.
 
 
-## Unsupervised Pre-Training
+## Self Supervised Pre-Training
 
-During unsupervised pre-training, we observed two prominent modes of collapse or ineffectiveness related to the cluster assigner:
+During self supervised pre-training, we observed two kinds of mode collapse related to the cluster assigner:
 
 1. **Dominant Dimension:** Here, the output of the cluster assigner is largely dominated by one dimension. Even when Gumbel noise is introduced, the final cluster assignment remains unaffected. Such a situation often arises when the weight distribution is like `1*invariance loss + 100*cluster loss`. By constraining the range of loss weights, this can be circumvented.
 

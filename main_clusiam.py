@@ -10,7 +10,7 @@ import time
 import shutil
 import torch.nn as nn
 from datasets import ClusterDataset
-from utils_cluster import final_cluster_similarity
+from utils import final_cluster_similarity, adjust_learning_rate
 import os
 from models import cluster_projector
 import csv
@@ -100,10 +100,8 @@ def main():
 
 
 
-    def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
+    def save_checkpoint(state, filename='checkpoint.pth.tar'):
         torch.save(state, filename)
-        if is_best:
-            shutil.copyfile(filename, 'model_best.pth.tar')
 
 
     class AverageMeter(object):
@@ -164,14 +162,6 @@ def main():
         train_dataset, batch_size=args.batch_size, shuffle=True,
         num_workers=args.num_worker, pin_memory=True, drop_last=True)
 
-    def adjust_learning_rate(optimizer, init_lr, epoch, epochs):
-        """Decay the learning rate based on schedule"""
-        cur_lr = init_lr * 0.5 * (1. + math.cos(math.pi * epoch / epochs))
-        for param_group in optimizer.param_groups:
-            if 'fix_lr' in param_group and param_group['fix_lr']:
-                param_group['lr'] = init_lr
-            else:
-                param_group['lr'] = cur_lr
 
     def train(train_loader, model, criterion, optimizer, epoch):
         batch_time = AverageMeter('Time', ':6.3f')
@@ -240,13 +230,13 @@ def main():
                 'epoch': epoch + 1,
                 'state_dict': model.state_dict(),
                 'optimizer' : optimizer.state_dict(),
-            }, is_best=False, filename='{}_{}.pth.tar'.format(args.save_path,epoch))
+            }, filename='{}_{}.pth.tar'.format(args.save_path,epoch))
 
     save_checkpoint({
         'epoch': epoch + 1,
         'state_dict': model.state_dict(),
         'optimizer' : optimizer.state_dict(),
-    }, is_best=False, filename='{}_last.pth.tar'.format(args.save_path))
+    }, filename='{}_last.pth.tar'.format(args.save_path))
 
 
 

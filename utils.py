@@ -2,6 +2,7 @@ import torch
 import torch.nn.functional as F
 import numpy as np
 import math
+import csv
 
 
 def adjust_learning_rate(optimizer, init_lr, epoch, epochs):
@@ -33,4 +34,3 @@ def final_cluster_similarity(representations, assigns, num_clusters=100, eps=1e-
     avg_outer = torch.nan_to_num(avg_outer,1)
 
     return avg_outer
-

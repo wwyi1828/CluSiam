@@ -46,7 +46,17 @@ For CluSiam training, we've set the default `alpha` to 0.5. This value was chose
 To initiate CluSiam unsupervised pre-training, execute:
 
 ```
-python main_clusiam.py
+python main.py \
+--model_type clusiam \
+--num_clusters 100 \
+--feat_size 2048 \
+--epochs 50 \
+--alpha 0.5 \
+--fix_pred_lr \
+--batch_size 512 \
+--save_path /path/to/save/model \
+--log_dst /path/to/log/destination \
+/path/to/your/dataset \
 ```
 
 
@@ -56,7 +66,16 @@ For CluBYOL training, we've chosen the default `alpha` to be 0.9. This decision 
 To start CluBYOL unsupervised pre-training, run:
 
 ```
-python main_clubyol.py
+python main.py \
+--model_type clubyol \
+--num_clusters 100 \
+--feat_size 256 \
+--epochs 50 \
+--alpha 0.9 \
+--batch_size 512 \
+--save_path /path/to/save/model \
+--log_dst /path/to/log/destination \
+/path/to/your/dataset \
 ```
 
 ## Evaluation

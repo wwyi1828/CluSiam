@@ -14,15 +14,17 @@
 ## Visualization
 <table>
   <tr>
-    <td><img src=".github\tumor_076.png" alt="Image 1" width="300"/></td>
-    <td><img src=".github\tumor_090.png" alt="Image 2" width="300"/></td>
+    <td><img src=".github\tumor_076.png" alt="Image 1" width="400"/></td>
+    <td><img src=".github\tumor_090.png" alt="Image 2" width="400"/></td>
   </tr>
   <tr>
-    <td><img src=".github\tumor_085.png" alt="Image 3" width="300"/></td>
-    <td><img src=".github\tumor_110.png" alt="Image 4" width="300"/></td>
+    <td><img src=".github\tumor_085.png" alt="Image 3" width="400"/></td>
+    <td><img src=".github\tumor_110.png" alt="Image 4" width="400"/></td>
   </tr>
 </table>
 In the visualizations provided, distinct color-filled regions depict different cluster assignments. The blue contours delineate the annotations made by human annotators.
+
+While the clustering module, a by-product of representation learning, may not delineate positive regions with absolute precision, it's remarkable that the clustering module achieves this entirely through self-supervised means. Given this constraint, we believe the results are commendable. Furthermore, these cluster assignments can potentially be enhanced when enhanced with other methodologies.
 
 ## Data preparing
 We've processed the Camelyon16 dataset for the ease. You can download the processed dataset directly from the link below:
@@ -80,7 +82,7 @@ python main.py \
 
 ## Evaluation
 
-The AUC values are calculated and reported using a methodology similar to [DSMIL](https://github.com/binli123/dsmil-wsi/blob/master/train_tcga.py), with a sigmoid function for class-wise prediction scores.
+The AUC values are calculated and reported using a methodology similar to [DSMIL](https://github.com/binli123/dsmil-wsi/blob/master/train_tcga.py), for class-wise prediction scores.
 
 We compare our representation's performance on whole slide-level classification and patch-level top-1 KNN classification (non-parameter) with other methods.
 
@@ -108,6 +110,19 @@ We compare our representation's performance on whole slide-level classification 
 | SimSiam    | 0.511 |
 | CluSiam    | 0.730 |
 
+## Citing Our Work
+
+If our research proves beneficial or serves as an inspiration for your work, we kindly request that you reference our publication:
+
+```bibtex
+@inproceedings{wu2023improving,
+  title={Improving Representation Learning for Histopathologic Images with Cluster Constraints},
+  author={Wu, Weiyi and Gao, Chongyang and DiPalma, Joseph and Vosoughi, Soroush and Hassanpour, Saeed},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={21404--21414},
+  year={2023}
+}
+```
 
 ## Repository Status
 Note: This repository is still under construction. Detailed documentation, code, and supplementary materials are in the process of being added and refined. Thank you for your patience.

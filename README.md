@@ -1,5 +1,5 @@
 # CluSiam: Improving Representation Learning for Histopathologic Images with Clustering Constraints
-
+Pytorch training code of the paper [Improving Representation Learning for Histopathologic Images with Cluster Constraints](https://arxiv.org/abs/2310.12334) 
 
 ## Contents
 
@@ -27,7 +27,7 @@ In the visualizations provided, distinct color-filled regions depict different c
 While the clustering module, a by-product of representation learning, may not delineate positive regions with absolute precision, it's remarkable that the clustering module achieves this entirely through self-supervised means. Given this constraint, we believe the results are commendable. Furthermore, these cluster assignments can potentially be enhanced when enhanced with other methodologies.
 
 ## Data preparing
-We've processed the Camelyon16 dataset for the ease. You can download the processed dataset directly from the link below:
+We processed the Camelyon16 dataset with all slides adjusted to a 20x magnification level for uniformity and ease of analysis. You can download the pre-processed patches from the link below:
 
 [Download Processed Camelyon16 Dataset](https://www.dropbox.com/s/58j49j8vy2cwkpj/Camelyon_20xpatch.zip)
 

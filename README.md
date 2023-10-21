@@ -107,6 +107,7 @@ We compare our representation's performance on whole slide-level classification 
 | PCL        | 0.382 |
 | Barlow.    | 0.681 |
 | BYOL       | 0.441 |
+| CluBYOL    | 0.768 |
 | SimSiam    | 0.511 |
 | CluSiam    | 0.730 |
 
@@ -124,5 +125,4 @@ If our research proves beneficial or serves as an inspiration for your work, we 
 }
 ```
 
-## Repository Status
-Note: This repository is still under construction. Detailed documentation, code, and supplementary materials are in the process of being added and refined. Thank you for your patience.
+

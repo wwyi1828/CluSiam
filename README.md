@@ -14,12 +14,12 @@ Pytorch training code of the paper [Improving Representation Learning for Histop
 ## Visualization
 <table>
   <tr>
-    <td><img src=".github\tumor_076.png" alt="Image 1" width="400"/></td>
-    <td><img src=".github\tumor_090.png" alt="Image 2" width="400"/></td>
+    <td><img src="assets\tumor_076.png" alt="Image 1" width="400"/></td>
+    <td><img src="assets\tumor_090.png" alt="Image 2" width="400"/></td>
   </tr>
   <tr>
-    <td><img src=".github\tumor_085.png" alt="Image 3" width="400"/></td>
-    <td><img src=".github\tumor_110.png" alt="Image 4" width="400"/></td>
+    <td><img src="assets\tumor_085.png" alt="Image 3" width="400"/></td>
+    <td><img src="assets\tumor_110.png" alt="Image 4" width="400"/></td>
   </tr>
 </table>
 In the visualizations provided, distinct color-filled regions depict different cluster assignments. The blue contours delineate the annotations made by human annotators.

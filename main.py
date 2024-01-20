@@ -5,9 +5,7 @@ from collections import Counter
 import torchvision.transforms as transforms
 import data_aug.loader
 import torch
-import math
 import time
-import shutil
 import torch.nn as nn
 from datasets import ClusterDataset
 from utils import *
@@ -16,6 +14,7 @@ from models import cluster_projector
 import csv
 import numpy as np
 import torch.nn.functional as F
+import json
 
 
 parser = argparse.ArgumentParser(description="PyTorch Pre-training")
@@ -48,19 +47,39 @@ parser.add_argument("--resume", default=False, type=bool, help="Resume training 
 parser.add_argument("train_path", metavar="DIR", help="path to dataset")
 
 
-
 def main():
 
-
     args = parser.parse_args()
-    train_dir = Path(args.train_path)
+    train_dir = args.train_path
 
+    stats_file = 'dataset_stats.json'
+    try:
+        with open(stats_file, 'r') as file:
+            stats = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        stats = {}
+        with open(stats_file, 'w') as file:
+            json.dump(stats, file)
+    
+    if train_dir in stats:
+        NORMALIZATION_MEAN, NORMALIZATION_STD = stats[train_dir]['mean'], stats[train_dir]['std']
+    else:
+        stat_computer = DatasetStatsComputer(train_dir)
+        NORMALIZATION_MEAN, NORMALIZATION_STD = stat_computer.compute()
+        NORMALIZATION_MEAN = NORMALIZATION_MEAN.tolist()
+        NORMALIZATION_STD = NORMALIZATION_STD.tolist()
+
+        stats[train_dir] = {'mean': NORMALIZATION_MEAN, 'std': NORMALIZATION_STD}
+        with open(stats_file, 'w') as file:
+            json.dump(stats, file)
+
+    train_dir = Path(train_dir)
     # Constants
-    CAMELYON_NORMALIZATION_MEAN = [0.6684, 0.5115, 0.6791]
-    CAMELYON_NORMALIZATION_STD = [0.2521, 0.2875, 0.2100]
+    # NORMALIZATION_MEAN = [0.6684, 0.5115, 0.6791]
+    # NORMALIZATION_STD = [0.2521, 0.2875, 0.2100]
 
     # Data augmentation and normalization
-    normalize = transforms.Normalize(mean=CAMELYON_NORMALIZATION_MEAN, std=CAMELYON_NORMALIZATION_STD)
+    normalize = transforms.Normalize(mean=NORMALIZATION_MEAN, std=NORMALIZATION_STD)
     augmentation = [
         transforms.RandomResizedCrop(224, scale=(0.2, 1.0)),
         transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8),

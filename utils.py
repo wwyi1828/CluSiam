@@ -1,8 +1,53 @@
 import torch
 import torch.nn.functional as F
-import numpy as np
 import math
-import csv
+from tqdm import tqdm
+import glob
+from pathlib import Path
+from torchvision import transforms
+from torch.utils.data import DataLoader, Dataset
+from datasets.ClusterDataset import RawImageDataset
+
+class DatasetStatsComputer:
+    def __init__(self, train_path, batch_size=1024, num_workers=32):
+        self.train_path = train_path
+        self.batch_size = batch_size
+        self.num_workers = num_workers
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.transform = transforms.Compose([transforms.ToTensor()])
+
+    def compute_mean_std(self, loader):
+        mean = 0.
+        sum_of_squared_error = 0.
+        nb_samples = 0.
+
+        for data in tqdm(loader):
+            data = data.to(self.device)
+            batch_samples = data.size(0)
+            data = data.view(batch_samples, data.size(1), -1)
+            mean += data.mean(2).sum(0)
+            nb_samples += batch_samples
+
+        mean /= nb_samples
+
+        for data in tqdm(loader):
+            data = data.to(self.device)
+            batch_samples = data.size(0)
+            data = data.view(batch_samples, data.size(1), -1)
+            sum_of_squared_error += ((data - mean.unsqueeze(1))**2).sum([0, 2])
+
+        std = torch.sqrt(sum_of_squared_error / (nb_samples * loader.dataset[0].size(1) * loader.dataset[0].size(2)))
+        return mean.cpu(), std.cpu()
+
+    def compute(self):
+        train_dir = Path(self.train_path)
+        train_dir_temp = train_dir.joinpath("*", "*.png")
+        patch_list = glob.glob(str(train_dir_temp))
+
+        dataset = RawImageDataset(patch_list, self.transform)
+        loader = DataLoader(dataset, batch_size=self.batch_size, num_workers=self.num_workers)
+        mean, std = self.compute_mean_std(loader)
+        return mean, std
 
 
 def adjust_learning_rate(optimizer, init_lr, epoch, epochs):

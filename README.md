@@ -42,6 +42,24 @@ During self supervised pre-training, we observed two kinds of mode collapse rela
 
 2. **Uniform Dimensions with Slight Variance:** In this scenario, the output from the cluster assigner is almost uniform across all dimensions. However, one dimension slightly exceeds the others. When Gumbel noise is added, the cluster assignment becomes random. Setting a small value for `alpha` can lead to this.
 
+### CluBYOL (Recommended)
+For CluBYOL training, we've chosen the default `alpha` to be 0.9. This decision stems from the fact that the invariance loss in CluBYOL is derived from the Euclidean distance, which spans a broader range than cosine similarity. We aim to rescale it to a range that aligns more closely with cosine similarity.
+
+To start CluBYOL unsupervised pre-training, run:
+
+```
+python main.py \
+--model_type clubyol \
+--num_clusters 100 \
+--feat_size 256 \
+--epochs 50 \
+--alpha 0.9 \
+--batch_size 512 \
+--save_path /path/to/save/model \
+--log_dst /path/to/log/destination \
+/path/to/your/dataset \
+```
+
 ### CluSiam
 For CluSiam training, we've set the default `alpha` to 0.5. This value was chosen because both the invariance loss and cluster loss are based on cosine similarities, although the cluster loss has a lower bound of `-1/(k-1)`. We later discovered that using a larger value here is also acceptable.
 
@@ -55,25 +73,6 @@ python main.py \
 --epochs 50 \
 --alpha 0.5 \
 --fix_pred_lr \
---batch_size 512 \
---save_path /path/to/save/model \
---log_dst /path/to/log/destination \
-/path/to/your/dataset \
-```
-
-
-### CluBYOL
-For CluBYOL training, we've chosen the default `alpha` to be 0.9. This decision stems from the fact that the invariance loss in CluBYOL is derived from the Euclidean distance, which spans a broader range than cosine similarity. We aim to rescale it to a range that aligns more closely with cosine similarity.
-
-To start CluBYOL unsupervised pre-training, run:
-
-```
-python main.py \
---model_type clubyol \
---num_clusters 100 \
---feat_size 256 \
---epochs 50 \
---alpha 0.9 \
 --batch_size 512 \
 --save_path /path/to/save/model \
 --log_dst /path/to/log/destination \

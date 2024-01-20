@@ -1,13 +1,13 @@
-# CluSiam: Improving Representation Learning for Histopathologic Images with Clustering Constraints
-Pytorch training code of the paper [Improving Representation Learning for Histopathologic Images with Cluster Constraints](https://arxiv.org/abs/2310.12334) 
+# CluSiam & CluBYOL: Improving Representation Learning for Histopathologic Images with Clustering Constraints
+Pytorch training code of the paper [Improving Representation Learning for Histopathologic Images with Cluster Constraints](https://arxiv.org/abs/2310.12334) (latest version with typo corrections).
 
 ## Contents
 
 <!-- - [Visualization](#visualization) -->
 - [Data preparing](#getting-started)
 - [Unsupervised Pre-Training](#unsupervised-pre-training)
-  - [CluSiam](#clusiam)
   - [CluBYOL](#clubyol)
+  - [CluSiam](#clusiam)
 - [Evaluation](#evaluation)
 - [Repository Status](#repository-status)
 
@@ -81,7 +81,7 @@ python main.py \
 
 ## Evaluation
 
-The AUC values are calculated and reported using a methodology similar to [DSMIL](https://github.com/binli123/dsmil-wsi/blob/master/train_tcga.py), for class-wise prediction scores.
+Downstream classification task is performed using [DSMIL](https://github.com/binli123/dsmil-wsi/blob/master/train_tcga.py), based on a sigmoid function for class-wise prediction scores. Though unconventional, it does not impact the final conclusions.
 
 We compare our representation's performance on whole slide-level classification and patch-level top-1 KNN classification (non-parameter) with other methods.
 

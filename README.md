@@ -11,6 +11,7 @@ Pytorch training code of the paper [Improving Representation Learning for Histop
   - [Cluster assignment visualizations](https://www.dropbox.com/scl/fo/6rqm9s80lickrx8ga08ao/AEnVr9T8j0PFQ6ybY_GT7YU?rlkey=mdlunmnrnn7ccn8zpib0445k0&st=mkx2bxez&dl=0)
 - CLAM preprocessing pipeline:
   - [CLAM-preprocessed Camelyon16 files](https://www.dropbox.com/scl/fo/6zxmzennp2pqdzcpf8qiy/AJOHZgdSBH1v-9qbeQC0EYQ?rlkey=2vhdar7nol7zeiryyca1p8o3i&st=lvtsdux7&dl=0)
+  - Modified CLAM preprocessing code: [wwyi1828/CLAM](https://github.com/wwyi1828/CLAM)
   - CluBYOL checkpoint: `CluBYOL_R18_C16_49.pth.tar`
   - CluBYOL extracted features: `C16_CluBYOL_R18.pkl`
   - CLAM extracted raw patches: `Camelyon16_patches.tar.gz`

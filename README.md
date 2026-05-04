@@ -1,15 +1,30 @@
 # CluSiam & CluBYOL: Improving Representation Learning for Histopathologic Images with Clustering Constraints
+
+[![Paper](https://img.shields.io/badge/Paper-ICCV%202023-b31b1b?logo=adobeacrobatreader&logoColor=white)](https://openaccess.thecvf.com/content/ICCV2023/papers/Wu_Improving_Representation_Learning_for_Histopathologic_Images_with_Cluster_Constraints_ICCV_2023_paper.pdf)
+
 Pytorch training code of the paper [Improving Representation Learning for Histopathologic Images with Cluster Constraints](https://arxiv.org/abs/2310.12334) (latest version with typo corrections).
+
+## Resources
+
+- Our preprocessing pipeline:
+  - [Patch outputs](https://www.dropbox.com/scl/fi/ppbexw95pjr2xvfc2ct5h/Camelyon_20xpatch_test.zip?rlkey=d20yh2zfndwxkbpzlhkdsrhyi&e=1&st=z8zgmasb&dl=0)
+  - [Cluster assignment visualizations](https://www.dropbox.com/scl/fo/6rqm9s80lickrx8ga08ao/AEnVr9T8j0PFQ6ybY_GT7YU?rlkey=mdlunmnrnn7ccn8zpib0445k0&st=mkx2bxez&dl=0)
+- CLAM preprocessing pipeline:
+  - [CLAM-preprocessed Camelyon16 files](https://www.dropbox.com/scl/fo/6zxmzennp2pqdzcpf8qiy/AJOHZgdSBH1v-9qbeQC0EYQ?rlkey=2vhdar7nol7zeiryyca1p8o3i&st=lvtsdux7&dl=0)
+  - CluBYOL checkpoint: `CluBYOL_R18_C16_49.pth.tar`
+  - CluBYOL extracted features: `C16_CluBYOL_R18.pkl`
+  - CLAM extracted raw patches: `Camelyon16_patches.tar.gz`
 
 ## Contents
 
 <!-- - [Visualization](#visualization) -->
-- [Data preparing](#getting-started)
-- [Unsupervised Pre-Training](#unsupervised-pre-training)
+- [Resources](#resources)
+- [Data preparing](#data-preparing)
+- [Self Supervised Pre-Training](#self-supervised-pre-training)
   - [CluBYOL](#clubyol)
   - [CluSiam](#clusiam)
 - [Evaluation](#evaluation)
-- [Repository Status](#repository-status)
+- [Citing Our Work](#citing-our-work)
 
 ## Visualization
 <table>
@@ -123,5 +138,3 @@ If our research proves beneficial or serves as an inspiration for your work, we 
   year={2023}
 }
 ```
-
-
